@@ -2,8 +2,10 @@
 name = "exotic-iter"
 readme = "README.md"
 version = "0.1.0"
-description = "Exotic iterator utilities"
+description = "My personal collection of special-case iterator methods"
 authors = ["Nicholas Fleck <TheBerkin@users.noreply.github.com>"]
+keywords = ["iterator", "iter", "exotic", "list", "collection"]
+license = "MIT"
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
