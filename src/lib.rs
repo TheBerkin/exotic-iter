@@ -43,7 +43,7 @@ pub trait ExoticIteratorExt: Iterator + Sized {
     fn exactly_n<P: FnMut(&Self::Item) -> bool>(self, n: usize, predicate: P) -> bool;
 
     /// Consumes the iterator, counting the number of items that pass each predicate and returns true iff 
-    /// there were exactly `n` passing items for the `predicate_m`, and exactly `n` passing items for `predicate_n`. 
+    /// there were exactly `m` passing items for the `predicate_m`, and exactly `n` passing items for `predicate_n`. 
     ///
     /// # Example
     /// ```rust
