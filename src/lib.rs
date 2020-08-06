@@ -1,5 +1,9 @@
+mod alternate;
+
+pub use alternate::*;
+
 /// Provides additional convenience methods to the `Iterator` trait and its implementors.
-pub trait ExoticIteratorExt: Iterator {
+pub trait ExoticIteratorExt: Iterator + Sized {
     /// Consumes the iterator, counting the number of items that pass the predicate and returns true iff there were at least `n` passing items.
     /// 
     /// # Example
@@ -79,6 +83,23 @@ pub trait ExoticIteratorExt: Iterator {
     /// assert_eq!(false, three_even.into_iter().perfectly_balanced(|n| *n % 2 == 0));
     /// ```
     fn perfectly_balanced<P: FnMut(&Self::Item) -> bool>(self, predicate: P) -> bool;
+
+    /// Creates an iterator that alternates between items from `self` and `other`, with `self` providing the first value.
+    /// Short-circuits at the first `None` returned, even if one of the iterators still has values left.
+    ///
+    /// # Example
+    /// ```rust
+    /// use exotic_iter::*;
+    /// let odd_numbers = vec![1, 3];
+    /// let even_numbers = vec![2, 4];
+    /// let mut iter = odd_numbers.iter().alternate(even_numbers.iter());
+    /// assert_eq!(Some(&1), iter.next());
+    /// assert_eq!(Some(&2), iter.next());
+    /// assert_eq!(Some(&3), iter.next());
+    /// assert_eq!(Some(&4), iter.next());
+    /// assert_eq!(None, iter.next());
+    /// ```
+    fn alternate<U: IntoIterator<Item = Self::Item>>(self, other: U) -> Alternate<Self, U::IntoIter>;
 }
 
 impl<T: Iterator> ExoticIteratorExt for T {    
@@ -156,5 +177,9 @@ impl<T: Iterator> ExoticIteratorExt for T {
             }
         }
         true
+    }
+
+    fn alternate<U: IntoIterator<Item = Self::Item>>(self, other: U) -> Alternate<Self, <U as IntoIterator>::IntoIter> {
+        Alternate::new(self, other.into_iter())
     }
 }
