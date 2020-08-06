@@ -1,7 +1,7 @@
 [package]
 name = "exotic-iter"
 readme = "README.md"
-version = "0.1.0"
+version = "0.1.1"
 repository = "https://github.com/TheBerkin/exotic-iter"
 description = "My personal collection of special-case iterator methods"
 authors = ["Nicholas Fleck <TheBerkin@users.noreply.github.com>"]
