@@ -32,9 +32,9 @@ pub trait ExoticIteratorExt: Iterator {
     /// let no_digits = "deadbeef";
     /// let two_digits = "deadb33f";
     /// let three_digits = "d3adb33f";
-    /// assert_eq!(false, no_digits.chars().any_n(2_usize, |c| c.is_ascii_digit()));
-    /// assert_eq!(true, two_digits.chars().any_n(2_usize, |c| c.is_ascii_digit()));
-    /// assert_eq!(false, three_digits.chars().any_n(2_usize, |c| c.is_ascii_digit()));
+    /// assert_eq!(false, no_digits.chars().exactly_n(2_usize, |c| c.is_ascii_digit()));
+    /// assert_eq!(true, two_digits.chars().exactly_n(2_usize, |c| c.is_ascii_digit()));
+    /// assert_eq!(false, three_digits.chars().exactly_n(2_usize, |c| c.is_ascii_digit()));
     /// ```
     fn exactly_n<P: FnMut(&Self::Item) -> bool>(self, n: usize, predicate: P) -> bool;
 
@@ -47,9 +47,9 @@ pub trait ExoticIteratorExt: Iterator {
     /// let more_digits = "abc12345";
     /// let balanced_digits = "abcd1234";
     /// let more_letters = "abcde123";
-    /// assert_eq!(false, more_digits.chars().any_m_n(4_usize, |c| c.is_ascii_alphabetic(), 4_usize, |c| c.is_ascii_digit()));
-    /// assert_eq!(true, balanced_digits.chars().any_m_n(4_usize, |c| c.is_ascii_alphabetic(), 4_usize, |c| c.is_ascii_digit()));
-    /// assert_eq!(false, more_letters.chars().any_m_n(4_usize, |c| c.is_ascii_alphabetic(), 4_usize, |c| c.is_ascii_digit()));
+    /// assert_eq!(false, more_digits.chars().exactly_m_n(4_usize, |c| c.is_ascii_alphabetic(), 4_usize, |c| c.is_ascii_digit()));
+    /// assert_eq!(true, balanced_digits.chars().exactly_m_n(4_usize, |c| c.is_ascii_alphabetic(), 4_usize, |c| c.is_ascii_digit()));
+    /// assert_eq!(false, more_letters.chars().exactly_m_n(4_usize, |c| c.is_ascii_alphabetic(), 4_usize, |c| c.is_ascii_digit()));
     /// ```
     fn exactly_m_n<Pm: FnMut(&Self::Item) -> bool, Pn: FnMut(&Self::Item) -> bool>(self, m: usize, predicate_m: Pm, n: usize, predicate_n: Pn) -> bool;
 
